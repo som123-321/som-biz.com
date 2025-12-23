@@ -1,324 +1,378 @@
-{\rtf1\ansi\ansicpg932\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue255;\red255\green255\blue254;
-\red14\green110\blue109;\red144\green1\blue18;\red191\green28\blue37;\red19\green118\blue70;}
-{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c100000;\cssrgb\c100000\c100000\c99608;
-\cssrgb\c0\c50196\c50196;\cssrgb\c63922\c8235\c8235;\cssrgb\c80392\c19216\c19216;\cssrgb\c3529\c52549\c34510;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+import React, { useState } from 'react';
+import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { 
+  Menu, X, ArrowRight, Phone, Mail, MapPin, ChevronRight,
+  Target, ShoppingCart, Crown, FlaskConical, Lock, Sun, Car, Factory,
+  History, Award, HeartHandshake, ChevronDown, Building2, CheckCircle2,
+  ShieldCheck, Zap, Users
+} from 'lucide-react';
+import { COMPANY_DATA, SERVICES, SomSymbolLogo } from './constants';
 
-\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 \
-\cf3 \cb4 \strokec3 import\cf0 \strokec2  \cf5 \strokec5 React\cf0 \strokec2 , \{ useState \} \cf3 \strokec3 from\cf0 \strokec2  \cf6 \strokec6 'react'\cf0 \strokec2 ;\cb1 \
-\cf3 \cb4 \strokec3 import\cf0 \strokec2  \{ \cf5 \strokec5 HashRouter\cf0 \strokec2 , \cf5 \strokec5 Routes\cf0 \strokec2 , \cf5 \strokec5 Route\cf0 \strokec2 , \cf5 \strokec5 Link\cf0 \strokec2 , useLocation \} \cf3 \strokec3 from\cf0 \strokec2  \cf6 \strokec6 'react-router-dom'\cf0 \strokec2 ;\cb1 \
-\cf3 \cb4 \strokec3 import\cf0 \strokec2  \{ \cb1 \
-\cb4   \cf5 \strokec5 Menu\cf0 \strokec2 , \cf5 \strokec5 X\cf0 \strokec2 , \cf5 \strokec5 ArrowRight\cf0 \strokec2 , \cf5 \strokec5 Phone\cf0 \strokec2 , \cf5 \strokec5 Mail\cf0 \strokec2 , \cf5 \strokec5 MapPin\cf0 \strokec2 , \cf5 \strokec5 ChevronRight\cf0 \strokec2 ,\cb1 \
-\cb4   \cf5 \strokec5 Target\cf0 \strokec2 , \cf5 \strokec5 ShoppingCart\cf0 \strokec2 , \cf5 \strokec5 Crown\cf0 \strokec2 , \cf5 \strokec5 FlaskConical\cf0 \strokec2 , \cf5 \strokec5 Lock\cf0 \strokec2 , \cf5 \strokec5 Sun\cf0 \strokec2 , \cf5 \strokec5 Car\cf0 \strokec2 , \cf5 \strokec5 Factory\cf0 \strokec2 ,\cb1 \
-\cb4   \cf5 \strokec5 History\cf0 \strokec2 , \cf5 \strokec5 Award\cf0 \strokec2 , \cf5 \strokec5 HeartHandshake\cf0 \strokec2 , \cf5 \strokec5 ChevronDown\cf0 \strokec2 , \cf5 \strokec5 Info\cf0 \strokec2 , \cf5 \strokec5 Building2\cf0 \strokec2 , \cf5 \strokec5 CheckCircle2\cf0 \cb1 \strokec2 \
-\cb4 \} \cf3 \strokec3 from\cf0 \strokec2  \cf6 \strokec6 'lucide-react'\cf0 \strokec2 ;\cb1 \
-\cf3 \cb4 \strokec3 import\cf0 \strokec2  \{ \cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 , \cf5 \strokec5 SERVICES\cf0 \strokec2 , \cf5 \strokec5 SomSymbolLogo\cf0 \strokec2  \} \cf3 \strokec3 from\cf0 \strokec2  \cf6 \strokec6 './constants'\cf0 \strokec2 ;\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 DynamicIcon\cf0 \strokec2  = (\{ name, className \}: \{ name: \cf3 \strokec3 string\cf0 \strokec2 ; className?: \cf3 \strokec3 string\cf0 \strokec2  \}) => \{\cb1 \
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  icons: \cf5 \strokec5 Record\cf0 \strokec2 <\cf3 \strokec3 string\cf0 \strokec2 , \cf3 \strokec3 any\cf0 \strokec2 > = \{\cb1 \
-\cb4     \cf5 \strokec5 Target\cf0 \strokec2 , \cf5 \strokec5 Phone\cf0 \strokec2 , \cf5 \strokec5 ShoppingCart\cf0 \strokec2 , \cf5 \strokec5 Crown\cf0 \strokec2 , \cf5 \strokec5 FlaskConical\cf0 \strokec2 , \cf5 \strokec5 Lock\cf0 \strokec2 , \cf5 \strokec5 Sun\cf0 \strokec2 , \cf5 \strokec5 Car\cf0 \strokec2 , \cf5 \strokec5 Factory\cf0 \strokec2 ,\cb1 \
-\cb4     \cf5 \strokec5 History\cf0 \strokec2 , \cf5 \strokec5 Award\cf0 \strokec2 , \cf5 \strokec5 HeartHandshake\cf0 \cb1 \strokec2 \
-\cb4   \};\cb1 \
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 IconComponent\cf0 \strokec2  = icons[name] || \cf5 \strokec5 Target\cf0 \strokec2 ;\cb1 \
-\cb4   \cf3 \strokec3 return\cf0 \strokec2  <\cf5 \strokec5 IconComponent\cf0 \strokec2  className=\{className\} />;\cb1 \
-\cb4 \};\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 Navbar\cf0 \strokec2  = () => \{\cb1 \
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  [isOpen, setIsOpen] = useState(\cf3 \strokec3 false\cf0 \strokec2 );\cb1 \
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  location = useLocation();\cb1 \
-\
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  navLinks = [\cb1 \
-\cb4     \{ name: \cf6 \strokec6 '\uc0\u12507 \u12540 \u12512 '\cf0 \strokec2 , path: \cf6 \strokec6 '/'\cf0 \strokec2  \},\cb1 \
-\cb4     \{ name: \cf6 \strokec6 '\uc0\u20107 \u26989 \u20869 \u23481 '\cf0 \strokec2 , path: \cf6 \strokec6 '/services'\cf0 \strokec2  \},\cb1 \
-\cb4     \{ name: \cf6 \strokec6 '\uc0\u20250 \u31038 \u27010 \u35201 '\cf0 \strokec2 , path: \cf6 \strokec6 '/about'\cf0 \strokec2  \},\cb1 \
-\cb4     \{ name: \cf6 \strokec6 '\uc0\u12362 \u21839 \u12356 \u21512 \u12431 \u12379 '\cf0 \strokec2 , path: \cf6 \strokec6 '/contact'\cf0 \strokec2  \},\cb1 \
-\cb4   ];\cb1 \
-\
-\cb4   \cf3 \strokec3 return\cf0 \strokec2  (\cb1 \
-\cb4     <nav className=\cf6 \strokec6 "fixed w-full z-50 bg-white/95 backdrop-blur-lg border-b border-slate-100"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec2 >\cb1 \
-\cb4         <div className=\cf6 \strokec6 "flex justify-between h-16 sm:h-20 items-center"\cf0 \strokec2 >\cb1 \
-\cb4           <\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/"\cf0 \strokec2  className=\cf6 \strokec6 "flex items-center group space-x-3"\cf0 \strokec2 >\cb1 \
-\cb4             <\cf5 \strokec5 SomSymbolLogo\cf0 \strokec2  className=\cf6 \strokec6 "h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110"\cf0 \strokec2  />\cb1 \
-\cb4             <div className=\cf6 \strokec6 "flex flex-col"\cf0 \strokec2 >\cb1 \
-\cb4               <span className=\cf6 \strokec6 "text-xl font-bold tracking-tighter text-slate-900 group-hover:text-orange-500 transition-colors"\cf0 \strokec2 >\cb1 \
-\cb4                 \cf7 \cb4 \strokec7 \uc0\u26666 \u24335 \u20250 \u31038 \cf5 \cb4 \strokec5 SOM\cf0 \cb1 \strokec2 \
-\cb4               </span>\cb1 \
-\cb4               <span className=\cf6 \strokec6 "text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none"\cf0 \strokec2 >\cb1 \
-\cb4                 \cf5 \strokec5 Sales\cf0 \strokec2  & \cf5 \strokec5 Life\cf0 \strokec2  \cf5 \strokec5 Innovation\cf0 \cb1 \strokec2 \
-\cb4               </span>\cb1 \
-\cb4             </div>\cb1 \
-\cb4           </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\
-\cb4           <div className=\cf6 \strokec6 "hidden md:flex space-x-8 items-center"\cf0 \strokec2 >\cb1 \
-\cb4             \{navLinks.map((link) => (\cb1 \
-\cb4               <\cf5 \strokec5 Link\cf0 \cb1 \strokec2 \
-\cb4                 key=\{link.path\}\cb1 \
-\cb4                 to=\{link.path\}\cb1 \
-\cb4                 className=\{\cf6 \strokec6 `text-sm font-bold transition-colors relative py-1 \cf0 \strokec2 $\{\cb1 \
-\cb4                   location.pathname === link.path ? \cf6 \strokec6 'text-orange-600'\cf0 \strokec2  : \cf6 \strokec6 'text-slate-600 hover:text-orange-500'\cf0 \cb1 \strokec2 \
-\cb4                 \}\cf6 \strokec6 `\cf0 \strokec2 \}\cb1 \
-\cb4               >\cb1 \
-\cb4                 \{link.name\}\cb1 \
-\cb4               </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4             ))\}\cb1 \
-\cb4             <\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/contact"\cf0 \strokec2  className=\cf6 \strokec6 "bg-orange-500 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-slate-900 transition-all shadow-md"\cf0 \strokec2 >\cb1 \
-\cb4               \cf7 \cb4 \strokec7 \uc0\u28961 \u26009 \u30456 \u35527 \cf0 \cb1 \strokec2 \
-\cb4             </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4           </div>\cb1 \
-\
-\cb4           <div className=\cf6 \strokec6 "md:hidden"\cf0 \strokec2 >\cb1 \
-\cb4             <button onClick=\{() => setIsOpen(!isOpen)\} className=\cf6 \strokec6 "text-slate-600 p-2"\cf0 \strokec2 >\cb1 \
-\cb4               \{isOpen ? <\cf5 \strokec5 X\cf0 \strokec2  className=\cf6 \strokec6 "h-6 w-6"\cf0 \strokec2  /> : <\cf5 \strokec5 Menu\cf0 \strokec2  className=\cf6 \strokec6 "h-6 w-6"\cf0 \strokec2  />\}\cb1 \
-\cb4             </button>\cb1 \
-\cb4           </div>\cb1 \
-\cb4         </div>\cb1 \
-\cb4       </div>\cb1 \
-\cb4       \{isOpen && (\cb1 \
-\cb4         <div className=\cf6 \strokec6 "md:hidden bg-white border-t border-slate-100 absolute top-full left-0 w-full shadow-2xl"\cf0 \strokec2 >\cb1 \
-\cb4           <div className=\cf6 \strokec6 "px-4 py-6 space-y-1"\cf0 \strokec2 >\cb1 \
-\cb4             \{navLinks.map((link) => (\cb1 \
-\cb4               <\cf5 \strokec5 Link\cf0 \cb1 \strokec2 \
-\cb4                 key=\{link.path\}\cb1 \
-\cb4                 to=\{link.path\}\cb1 \
-\cb4                 onClick=\{() => setIsOpen(\cf3 \strokec3 false\cf0 \strokec2 )\}\cb1 \
-\cb4                 className=\{\cf6 \strokec6 `block px-4 py-4 text-base font-bold rounded-xl \cf0 \strokec2 $\{location.pathname === link.path ? \cf6 \strokec6 'bg-orange-50 text-orange-600'\cf0 \strokec2  : \cf6 \strokec6 'text-slate-700'\cf0 \strokec2 \}\cf6 \strokec6 `\cf0 \strokec2 \}\cb1 \
-\cb4               >\cb1 \
-\cb4                 \{link.name\}\cb1 \
-\cb4               </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4             ))\}\cb1 \
-\cb4           </div>\cb1 \
-\cb4         </div>\cb1 \
-\cb4       )\}\cb1 \
-\cb4     </nav>\cb1 \
-\cb4   );\cb1 \
-\cb4 \};\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 Footer\cf0 \strokec2  = () => \{\cb1 \
-\cb4   \cf3 \strokec3 return\cf0 \strokec2  (\cb1 \
-\cb4     <footer className=\cf6 \strokec6 "bg-slate-900 text-slate-300 pt-20 pb-10"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec2 >\cb1 \
-\cb4         <div className=\cf6 \strokec6 "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"\cf0 \strokec2 >\cb1 \
-\cb4           <div className=\cf6 \strokec6 "space-y-6"\cf0 \strokec2 >\cb1 \
-\cb4             <\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/"\cf0 \strokec2  className=\cf6 \strokec6 "flex items-center group space-x-3"\cf0 \strokec2 >\cb1 \
-\cb4               <\cf5 \strokec5 SomSymbolLogo\cf0 \strokec2  className=\cf6 \strokec6 "h-10 w-10 brightness-0 invert"\cf0 \strokec2  />\cb1 \
-\cb4               <span className=\cf6 \strokec6 "text-2xl font-bold tracking-tight text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\cb1 \
-\cb4                 \cf7 \cb4 \strokec7 \uc0\u26666 \u24335 \u20250 \u31038 \cf5 \cb4 \strokec5 SOM\cf0 \cb1 \strokec2 \
-\cb4               </span>\cb1 \
-\cb4             </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4             <p className=\cf6 \strokec6 "text-sm leading-relaxed text-slate-400"\cf0 \strokec2 >\cb1 \
-\cb4               \cf7 \cb4 \strokec7 \uc0\u12300 \u20154 \u12301 \u12392 \u12300 \u31038 \u20250 \u12301 \u12434 \u26368 \u36969 \u21270 \u12377 \u12427 \u12290 \u12475 \u12540 \u12523 \u12473 \u12289 \u12501 \u12451 \u12483 \u12488 \u12493 \u12473 \u12289 \u20877 \u29983 \u12456 \u12493 \u12523 \u12462 \u12540 \u12290 \cf8 \cb4 \strokec8 3\cf7 \cb4 \strokec7 \uc0\u12388 \u12398 \u26609 \u12391 \u26410 \u26469 \u12434 \u20999 \u12426 \u25299 \u12365 \u12414 \u12377 \u12290 \cf0 \cb1 \strokec2 \
-\cb4             </p>\cb1 \
-\cb4           </div>\cb1 \
-\cb4           <div>\cb1 \
-\cb4             <h3 className=\cf6 \strokec6 "font-bold mb-6 text-sm uppercase tracking-widest text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\cf5 \strokec5 SERVICES\cf0 \strokec2 </h3>\cb1 \
-\cb4             <ul className=\cf6 \strokec6 "space-y-4 text-sm font-medium"\cf0 \strokec2 >\cb1 \
-\cb4               <li><\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/services"\cf0 \strokec2  className=\cf6 \strokec6 "hover:text-orange-400"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u12475 \u12540 \u12523 \u12473 \u12539 \u12510 \u12540 \u12465 \u12486 \u12451 \u12531 \u12464 \cf0 \cb4 \strokec2 </\cf5 \strokec5 Link\cf0 \strokec2 ></li>\cb1 \
-\cb4               <li><\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/services"\cf0 \strokec2  className=\cf6 \strokec6 "hover:text-orange-400"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u12497 \u12540 \u12477 \u12490 \u12523 \u12472 \u12512 \u20107 \u26989 \cf0 \cb4 \strokec2 </\cf5 \strokec5 Link\cf0 \strokec2 ></li>\cb1 \
-\cb4               <li><\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/services"\cf0 \strokec2  className=\cf6 \strokec6 "hover:text-orange-400"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u20877 \u29983 \u12456 \u12493 \u12523 \u12462 \u12540 \u20107 \u26989 \cf0 \cb4 \strokec2 </\cf5 \strokec5 Link\cf0 \strokec2 ></li>\cb1 \
-\cb4             </ul>\cb1 \
-\cb4           </div>\cb1 \
-\cb4           <div>\cb1 \
-\cb4             <h3 className=\cf6 \strokec6 "font-bold mb-6 text-sm uppercase tracking-widest text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\cf5 \strokec5 COMPANY\cf0 \strokec2 </h3>\cb1 \
-\cb4             <ul className=\cf6 \strokec6 "space-y-4 text-sm font-medium"\cf0 \strokec2 >\cb1 \
-\cb4               <li className=\cf6 \strokec6 "flex items-start space-x-3"\cf0 \strokec2 >\cb1 \
-\cb4                 <\cf5 \strokec5 MapPin\cf0 \strokec2  className=\cf6 \strokec6 "h-5 w-5 text-orange-500 shrink-0"\cf0 \strokec2  />\cb1 \
-\cb4                 <span className=\cf6 \strokec6 "text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\{\cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .address\}</span>\cb1 \
-\cb4               </li>\cb1 \
-\cb4               <li className=\cf6 \strokec6 "flex items-center space-x-3"\cf0 \strokec2 >\cb1 \
-\cb4                 <\cf5 \strokec5 Building2\cf0 \strokec2  className=\cf6 \strokec6 "h-5 w-5 text-orange-500 shrink-0"\cf0 \strokec2  />\cb1 \
-\cb4                 <span className=\cf6 \strokec6 "text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\cf7 \cb4 \strokec7 \uc0\u20195 \u34920 \u65306 \cf0 \cb4 \strokec2 \{\cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .representative\}</span>\cb1 \
-\cb4               </li>\cb1 \
-\cb4             </ul>\cb1 \
-\cb4           </div>\cb1 \
-\cb4           <div>\cb1 \
-\cb4             <h3 className=\cf6 \strokec6 "font-bold mb-6 text-sm uppercase tracking-widest text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\cf5 \strokec5 CONTACT\cf0 \strokec2 </h3>\cb1 \
-\cb4             <div className=\cf6 \strokec6 "space-y-4"\cf0 \strokec2 >\cb1 \
-\cb4               <p className=\cf6 \strokec6 "text-xs text-slate-500 font-bold uppercase tracking-wider"\cf0 \strokec2 >\cf5 \strokec5 Mail\cf0 \strokec2  \cf5 \strokec5 Address\cf0 \strokec2 </p>\cb1 \
-\cb4               <p className=\cf6 \strokec6 "text-sm font-bold underline underline-offset-4 decoration-orange-500 text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>info\cf7 \cb4 \strokec7 @\cf0 \cb4 \strokec2 som-biz.com</p>\cb1 \
-\cb4             </div>\cb1 \
-\cb4           </div>\cb1 \
-\cb4         </div>\cb1 \
-\cb4         <div className=\cf6 \strokec6 "pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-widest font-bold"\cf0 \strokec2 >\cb1 \
-\cb4           <p className=\cf6 \strokec6 "text-white !text-white"\cf0 \strokec2  style=\{\{ color: \cf6 \strokec6 '#ffffff'\cf0 \strokec2  \}\}>\cf7 \cb4 \strokec7 \'a9\cf0 \cb4 \strokec2  \{\cf3 \strokec3 new\cf0 \strokec2  \cf5 \strokec5 Date\cf0 \strokec2 ().getFullYear()\} \cf7 \cb4 \strokec7 \uc0\u26666 \u24335 \u20250 \u31038 \cf5 \cb4 \strokec5 SOM\cf0 \strokec2  \cf5 \strokec5 All\cf0 \strokec2  rights reserved.</p>\cb1 \
-\cb4         </div>\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </footer>\cb1 \
-\cb4   );\cb1 \
-\cb4 \};\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 HomePage\cf0 \strokec2  = () => (\cb1 \
-\cb4   <div className=\cf6 \strokec6 "animate-in fade-in duration-1000"\cf0 \strokec2 >\cb1 \
-\cb4     <section className=\cf6 \strokec6 "relative pt-32 pb-24 sm:pt-48 sm:pb-40 hero-mesh overflow-hidden"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"\cf0 \strokec2 >\cb1 \
-\cb4         <div className=\cf6 \strokec6 "max-w-4xl"\cf0 \strokec2 >\cb1 \
-\cb4           <div className=\cf6 \strokec6 "inline-flex items-center space-x-2 bg-orange-100/50 text-orange-700 px-4 py-1.5 rounded-full text-xs font-black mb-8 border border-orange-200"\cf0 \strokec2 >\cb1 \
-\cb4              <span className=\cf6 \strokec6 "uppercase tracking-[0.1em]"\cf0 \strokec2 >\cf5 \strokec5 Innovation\cf0 \strokec2  \cf3 \strokec3 for\cf0 \strokec2  \cf8 \cb4 \strokec8 2025\cf0 \cb4 \strokec2 </span>\cb1 \
-\cb4           </div>\cb1 \
-\cb4           <h1 className=\cf6 \strokec6 "text-5xl sm:text-7xl lg:text-8xl font-bold text-slate-900 leading-[1.05] mb-8"\cf0 \strokec2 >\cb1 \
-\cb4             \cf7 \cb4 \strokec7 \uc0\u21487 \u33021 \u24615 \u12434 \u12289 \cf0 \cb4 \strokec2 <br />\cb1 \
-\cb4             <span className=\cf6 \strokec6 "gradient-text"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u20181 \u32068 \u12415 \u12395 \u12377 \u12427 \u12290 \cf0 \cb4 \strokec2 </span>\cb1 \
-\cb4           </h1>\cb1 \
-\cb4           <p className=\cf6 \strokec6 "text-lg sm:text-2xl text-slate-600 mb-12 leading-relaxed max-w-2xl font-medium"\cf0 \strokec2 >\cb1 \
-\cb4             \cf7 \cb4 \strokec7 \uc0\u12475 \u12540 \u12523 \u12473 \u12289 \u12501 \u12451 \u12483 \u12488 \u12493 \u12473 \u12289 \u20877 \u29983 \u12456 \u12493 \u12523 \u12462 \u12540 \u12290 \u12377 \u12409 \u12390 \u12300 \u12424 \u12426 \u33391 \u12356 \u26126 \u26085 \u12301 \u12408 \u12392 \u32331 \u12364 \u12387 \u12390 \u12356 \u12414 \u12377 \u12290 \cf0 \cb1 \strokec2 \
-\cb4           </p>\cb1 \
-\cb4           <div className=\cf6 \strokec6 "flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"\cf0 \strokec2 >\cb1 \
-\cb4             <\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/services"\cf0 \strokec2  className=\cf6 \strokec6 "inline-flex items-center justify-center bg-slate-900 text-white px-10 py-5 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl text-lg"\cf0 \strokec2 >\cb1 \
-\cb4               \cf7 \cb4 \strokec7 \uc0\u20107 \u26989 \u20869 \u23481 \u12434 \u35211 \u12427 \cf0 \cb4 \strokec2  <\cf5 \strokec5 ArrowRight\cf0 \strokec2  className=\cf6 \strokec6 "ml-2 w-5 h-5"\cf0 \strokec2  />\cb1 \
-\cb4             </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4           </div>\cb1 \
-\cb4         </div>\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </section>\cb1 \
-\cb4     <section className=\cf6 \strokec6 "py-24 bg-white"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-5xl mx-auto px-4 text-center"\cf0 \strokec2 >\cb1 \
-\cb4         <div className=\cf6 \strokec6 "bg-orange-500 p-16 sm:p-24 rounded-[4rem] shadow-2xl"\cf0 \strokec2 >\cb1 \
-\cb4           <h2 className=\cf6 \strokec6 "text-3xl sm:text-5xl font-bold text-white mb-8 leading-tight"\cf0 \strokec2 >\cb1 \
-\cb4             \cf7 \cb4 \strokec7 \uc0\u12354 \u12394 \u12383 \u12398 \u12499 \u12472 \u12493 \u12473 \u12398 \u21487 \u33021 \u24615 \u12434 \u12289 \cf0 \cb4 \strokec2 <br />\cf7 \cb4 \strokec7 \uc0\u20849 \u12395 \u35211 \u12388 \u12369 \u20986 \u12375 \u12414 \u12375 \u12423 \u12358 \u12290 \cf0 \cb1 \strokec2 \
-\cb4           </h2>\cb1 \
-\cb4           <\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/contact"\cf0 \strokec2  className=\cf6 \strokec6 "inline-flex items-center justify-center bg-white text-orange-600 px-12 py-6 rounded-full font-bold text-xl hover:bg-slate-900 hover:text-white transition-all shadow-xl"\cf0 \strokec2 >\cb1 \
-\cb4             \cf7 \cb4 \strokec7 \uc0\u28961 \u26009 \u30456 \u35527 \u12434 \u30003 \u12375 \u36796 \u12416 \cf0 \cb4 \strokec2  <\cf5 \strokec5 ArrowRight\cf0 \strokec2  className=\cf6 \strokec6 "ml-3 w-6 h-6"\cf0 \strokec2  />\cb1 \
-\cb4           </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4         </div>\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </section>\cb1 \
-\cb4   </div>\cb1 \
-\cb4 );\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 AboutPage\cf0 \strokec2  = () => (\cb1 \
-\cb4   <div className=\cf6 \strokec6 "pt-24 animate-in fade-in slide-in-from-bottom-4 duration-700"\cf0 \strokec2 >\cb1 \
-\cb4     <div className=\cf6 \strokec6 "bg-slate-50 py-32 mb-20"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left"\cf0 \strokec2 >\cb1 \
-\cb4         <h1 className=\cf6 \strokec6 "text-sm font-black text-orange-600 tracking-[0.5em] uppercase mb-6"\cf0 \strokec2 >\cf5 \strokec5 ABOUT\cf0 \strokec2  \cf5 \strokec5 SOM\cf0 \strokec2 </h1>\cb1 \
-\cb4         <p className=\cf6 \strokec6 "text-5xl sm:text-7xl font-bold text-slate-900"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u20250 \u31038 \u27010 \u35201 \u12539 \u20195 \u34920 \u32057 \u20171 \cf0 \cb4 \strokec2 </p>\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </div>\cb1 \
-\cb4     <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-40"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "grid grid-cols-1 lg:grid-cols-12 gap-16 mb-48"\cf0 \strokec2 >\cb1 \
-\cb4         <div className=\cf6 \strokec6 "lg:col-span-5"\cf0 \strokec2 >\cb1 \
-\cb4            <div className=\cf6 \strokec6 "rounded-[3rem] overflow-hidden shadow-2xl bg-white p-4 border border-slate-100"\cf0 \strokec2 >\cb1 \
-\cb4               <img src=\cf6 \strokec6 "https://images.unsplash.com/photo-1519085185971-7ad0bb2fd27d?auto=format&fit=crop&q=80&w=1000"\cf0 \strokec2  alt=\cf6 \strokec6 "CEO"\cf0 \strokec2  className=\cf6 \strokec6 "rounded-[2.5rem] w-full aspect-[3/4] object-cover"\cf0 \strokec2  />\cb1 \
-\cb4               <div className=\cf6 \strokec6 "mt-8 px-6 pb-6 text-center lg:text-left"\cf0 \strokec2 >\cb1 \
-\cb4                 <p className=\cf6 \strokec6 "text-xs font-black text-orange-500 tracking-widest uppercase mb-1"\cf0 \strokec2 >\cf5 \strokec5 Representative\cf0 \strokec2  \cf5 \strokec5 Director\cf0 \strokec2 </p>\cb1 \
-\cb4                 <h3 className=\cf6 \strokec6 "text-4xl font-bold text-slate-900"\cf0 \strokec2 >\{\cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .representative\}</h3>\cb1 \
-\cb4               </div>\cb1 \
-\cb4            </div>\cb1 \
-\cb4         </div>\cb1 \
-\cb4         <div className=\cf6 \strokec6 "lg:col-span-7 space-y-8"\cf0 \strokec2 >\cb1 \
-\cb4           <h2 className=\cf6 \strokec6 "text-4xl font-bold text-slate-900"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u12300 \u20154 \u12301 \u12398 \u21487 \u33021 \u24615 \u12434 \u26368 \u22823 \u21270 \u12375 \u12289 \u31038 \u20250 \u12398 \u26368 \u36969 \u35299 \u12434 \u23566 \u12365 \u20986 \u12377 \u12290 \cf0 \cb4 \strokec2 </h2>\cb1 \
-\cb4           <p className=\cf6 \strokec6 "text-slate-600 text-lg leading-relaxed"\cf0 \strokec2 >\cf8 \cb4 \strokec8 2016\cf7 \cb4 \strokec7 \uc0\u24180 \u12398 \u35373 \u31435 \u24403 \u21021 \u12363 \u12425 \u22793 \u12431 \u12425 \u12394 \u12356 \u24819 \u12356 \u12364 \u12354 \u12426 \u12414 \u12377 \u12290 \u12475 \u12540 \u12523 \u12473 \u12391 \u12463 \u12521 \u12452 \u12450 \u12531 \u12488 \u12398 \u21487 \u33021 \u24615 \u12434 \u24195 \u12370 \u12289 \u12472 \u12512 \u12391 \u20491 \u20154 \u12398 \u27963 \u21147 \u12434 \u26368 \u22823 \u21270 \u12375 \u12289 \u20877 \u29983 \u12456 \u12493 \u12523 \u12462 \u12540 \u12391 \u31038 \u20250 \u12398 \u25345 \u32154 \u21487 \u33021 \u24615 \u12434 \u25903 \u12360 \u12427 \u12290 \u12371 \u12428 \u12425 \u12399 \u12377 \u12409 \u12390 \u19968 \u12388 \u12398 \u20870 \u12392 \u12394 \u12387 \u12390 \u32331 \u12364 \u12387 \u12390 \u12356 \u12414 \u12377 \u12290 \cf0 \cb4 \strokec2 </p>\cb1 \
-\cb4         </div>\cb1 \
-\cb4       </div>\cb1 \
-\cb4       <div className=\cf6 \strokec6 "bg-white rounded-[3rem] border border-slate-100 shadow-xl overflow-hidden"\cf0 \strokec2 >\cb1 \
-\cb4         \{[\cb1 \
-\cb4           \{ label: \cf6 \strokec6 "\uc0\u20250 \u31038 \u21517 "\cf0 \strokec2 , value: \cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .name \},\cb1 \
-\cb4           \{ label: \cf6 \strokec6 "\uc0\u20195 \u34920 \u21462 \u32224 \u24441 "\cf0 \strokec2 , value: \cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .representative \},\cb1 \
-\cb4           \{ label: \cf6 \strokec6 "\uc0\u25152 \u22312 \u22320 "\cf0 \strokec2 , value: \cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .address \},\cb1 \
-\cb4           \{ label: \cf6 \strokec6 "\uc0\u35373 \u31435 "\cf0 \strokec2 , value: \cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .established \},\cb1 \
-\cb4           \{ label: \cf6 \strokec6 "\uc0\u20107 \u26989 \u20869 \u23481 "\cf0 \strokec2 , value: (\cb1 \
-\cb4             <ul className=\cf6 \strokec6 "space-y-2"\cf0 \strokec2 >\cb1 \
-\cb4               \{\cf5 \strokec5 COMPANY_DATA\cf0 \strokec2 .businessDetails.map(d => <li key=\{d\} className=\cf6 \strokec6 "flex items-center font-bold text-slate-700"\cf0 \strokec2 ><div className=\cf6 \strokec6 "w-1.5 h-1.5 rounded-full bg-orange-500 mr-3"\cf0 \strokec2 ></div>\{d\}</li>)\}\cb1 \
-\cb4             </ul>\cb1 \
-\cb4           )\},\cb1 \
-\cb4         ].map((row, idx) => (\cb1 \
-\cb4           <div key=\{idx\} className=\cf6 \strokec6 "flex flex-col md:flex-row py-10 px-10 border-b border-slate-50 last:border-0"\cf0 \strokec2 >\cb1 \
-\cb4             <div className=\cf6 \strokec6 "md:w-1/3 text-xs font-black text-slate-400 uppercase tracking-widest mb-2 md:mb-0"\cf0 \strokec2 >\{row.label\}</div>\cb1 \
-\cb4             <div className=\cf6 \strokec6 "md:w-2/3 text-xl text-slate-900 font-bold"\cf0 \strokec2 >\{row.value\}</div>\cb1 \
-\cb4           </div>\cb1 \
-\cb4         ))\}\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </div>\cb1 \
-\cb4   </div>\cb1 \
-\cb4 );\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 ServicesPage\cf0 \strokec2  = () => \{\cb1 \
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  [expandedFeature, setExpandedFeature] = useState<\cf3 \strokec3 string\cf0 \strokec2  | \cf3 \strokec3 null\cf0 \strokec2 >(\cf3 \strokec3 null\cf0 \strokec2 );\cb1 \
-\cb4   \cf3 \strokec3 return\cf0 \strokec2  (\cb1 \
-\cb4     <div className=\cf6 \strokec6 "pt-24 animate-in fade-in slide-in-from-bottom-4 duration-700"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center"\cf0 \strokec2 >\cb1 \
-\cb4         <h1 className=\cf6 \strokec6 "text-sm font-black text-orange-600 tracking-[0.5em] uppercase mb-6"\cf0 \strokec2 >\cf5 \strokec5 WHAT\cf0 \strokec2  \cf5 \strokec5 WE\cf0 \strokec2  \cf5 \strokec5 DO\cf0 \strokec2 </h1>\cb1 \
-\cb4         <p className=\cf6 \strokec6 "text-5xl sm:text-7xl font-bold text-slate-900 mb-10"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u20107 \u26989 \u20869 \u23481 \cf0 \cb4 \strokec2 </p>\cb1 \
-\cb4       </div>\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-40 space-y-48"\cf0 \strokec2 >\cb1 \
-\cb4         \{\cf5 \strokec5 SERVICES\cf0 \strokec2 .map((service, idx) => (\cb1 \
-\cb4           <div key=\{service.id\} className=\{\cf6 \strokec6 `flex flex-col lg:flex-row items-center gap-16 lg:gap-32 \cf0 \strokec2 $\{idx % \cf8 \cb4 \strokec8 2\cf0 \cb4 \strokec2  !== \cf8 \cb4 \strokec8 0\cf0 \cb4 \strokec2  ? \cf6 \strokec6 'lg:flex-row-reverse'\cf0 \strokec2  : \cf6 \strokec6 ''\cf0 \strokec2 \}\cf6 \strokec6 `\cf0 \strokec2 \}>\cb1 \
-\cb4             <div className=\cf6 \strokec6 "w-full lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl"\cf0 \strokec2 >\cb1 \
-\cb4               <img src=\{service.imageUrl\} alt=\{service.title\} className=\cf6 \strokec6 "w-full aspect-[4/3] object-cover"\cf0 \strokec2  />\cb1 \
-\cb4             </div>\cb1 \
-\cb4             <div className=\cf6 \strokec6 "w-full lg:w-1/2 space-y-10"\cf0 \strokec2 >\cb1 \
-\cb4               <h2 className=\cf6 \strokec6 "text-4xl sm:text-6xl font-bold text-slate-900"\cf0 \strokec2 >\{service.title\}</h2>\cb1 \
-\cb4               <p className=\cf6 \strokec6 "text-slate-500 text-xl font-medium"\cf0 \strokec2 >\{service.description\}</p>\cb1 \
-\cb4               <div className=\cf6 \strokec6 "space-y-4"\cf0 \strokec2 >\cb1 \
-\cb4                 \{service.features.map(f => (\cb1 \
-\cb4                   <div key=\{f.label\} className=\cf6 \strokec6 "border border-slate-100 rounded-[2rem] bg-slate-50"\cf0 \strokec2 >\cb1 \
-\cb4                     <button onClick=\{() => setExpandedFeature(expandedFeature === f.label ? \cf3 \strokec3 null\cf0 \strokec2  : f.label)\} className=\cf6 \strokec6 "w-full flex items-center justify-between p-6"\cf0 \strokec2 >\cb1 \
-\cb4                       <div className=\cf6 \strokec6 "flex items-center"\cf0 \strokec2 >\cb1 \
-\cb4                         <div className=\{\cf6 \strokec6 `w-12 h-12 rounded-full flex items-center justify-center mr-5 \cf0 \strokec2 $\{expandedFeature === f.label ? \cf6 \strokec6 'bg-orange-500 text-white'\cf0 \strokec2  : \cf6 \strokec6 'bg-white text-slate-400'\cf0 \strokec2 \}\cf6 \strokec6 `\cf0 \strokec2 \}>\cb1 \
-\cb4                           <\cf5 \strokec5 DynamicIcon\cf0 \strokec2  name=\{f.iconName\} className=\cf6 \strokec6 "w-6 h-6"\cf0 \strokec2  />\cb1 \
-\cb4                         </div>\cb1 \
-\cb4                         <span className=\cf6 \strokec6 "text-lg font-bold text-slate-700"\cf0 \strokec2 >\{f.label\}</span>\cb1 \
-\cb4                       </div>\cb1 \
-\cb4                       <\cf5 \strokec5 ChevronDown\cf0 \strokec2  className=\{\cf6 \strokec6 `w-6 h-6 text-slate-300 transition-transform \cf0 \strokec2 $\{expandedFeature === f.label ? \cf6 \strokec6 'rotate-180'\cf0 \strokec2  : \cf6 \strokec6 ''\cf0 \strokec2 \}\cf6 \strokec6 `\cf0 \strokec2 \} />\cb1 \
-\cb4                     </button>\cb1 \
-\cb4                     \{expandedFeature === f.label && <div className=\cf6 \strokec6 "p-8 pt-0 bg-white rounded-b-[2rem] text-slate-600 font-bold leading-relaxed"\cf0 \strokec2 >\{f.description\}</div>\}\cb1 \
-\cb4                   </div>\cb1 \
-\cb4                 ))\}\cb1 \
-\cb4               </div>\cb1 \
-\cb4             </div>\cb1 \
-\cb4           </div>\cb1 \
-\cb4         ))\}\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </div>\cb1 \
-\cb4   );\cb1 \
-\cb4 \};\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 ContactPage\cf0 \strokec2  = () => \{\cb1 \
-\cb4   \cf3 \strokec3 const\cf0 \strokec2  [submitted, setSubmitted] = useState(\cf3 \strokec3 false\cf0 \strokec2 );\cb1 \
-\cb4   \cf3 \strokec3 if\cf0 \strokec2  (submitted) \cf3 \strokec3 return\cf0 \strokec2  (\cb1 \
-\cb4     <div className=\cf6 \strokec6 "pt-32 pb-40 text-center px-4"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "bg-orange-100 text-orange-600 w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-12"\cf0 \strokec2 ><\cf5 \strokec5 CheckCircle2\cf0 \strokec2  className=\cf6 \strokec6 "w-16 h-16"\cf0 \strokec2  /></div>\cb1 \
-\cb4       <h1 className=\cf6 \strokec6 "text-4xl font-bold mb-8"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u36865 \u20449 \u23436 \u20102 \u12356 \u12383 \u12375 \u12414 \u12375 \u12383 \cf0 \cb4 \strokec2 </h1>\cb1 \
-\cb4       <\cf5 \strokec5 Link\cf0 \strokec2  to=\cf6 \strokec6 "/"\cf0 \strokec2  className=\cf6 \strokec6 "bg-slate-900 text-white px-14 py-6 rounded-full font-bold"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u12488 \u12483 \u12503 \u12408 \u25147 \u12427 \cf0 \cb4 \strokec2 </\cf5 \strokec5 Link\cf0 \strokec2 >\cb1 \
-\cb4     </div>\cb1 \
-\cb4   );\cb1 \
-\cb4   \cf3 \strokec3 return\cf0 \strokec2  (\cb1 \
-\cb4     <div className=\cf6 \strokec6 "pt-32 pb-40 px-4"\cf0 \strokec2 >\cb1 \
-\cb4       <div className=\cf6 \strokec6 "max-w-4xl mx-auto bg-white p-10 sm:p-20 rounded-[4rem] border border-slate-100 shadow-2xl"\cf0 \strokec2 >\cb1 \
-\cb4         <h1 className=\cf6 \strokec6 "text-4xl sm:text-6xl font-bold text-center mb-16"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u12362 \u21839 \u12356 \u21512 \u12431 \u12379 \cf0 \cb4 \strokec2 </h1>\cb1 \
-\cb4         <form onSubmit=\{(e) => \{ e.preventDefault(); setSubmitted(\cf3 \strokec3 true\cf0 \strokec2 ); \}\} className=\cf6 \strokec6 "space-y-8"\cf0 \strokec2 >\cb1 \
-\cb4           <input \cf3 \strokec3 type\cf0 \strokec2 =\cf6 \strokec6 "text"\cf0 \strokec2  required placeholder=\cf6 \strokec6 "\uc0\u12362 \u21517 \u21069 "\cf0 \strokec2  className=\cf6 \strokec6 "w-full px-8 py-6 bg-slate-50 rounded-3xl outline-none border focus:border-orange-500 font-bold"\cf0 \strokec2  />\cb1 \
-\cb4           <input \cf3 \strokec3 type\cf0 \strokec2 =\cf6 \strokec6 "email"\cf0 \strokec2  required placeholder=\cf6 \strokec6 "\uc0\u12513 \u12540 \u12523 \u12450 \u12489 \u12524 \u12473 "\cf0 \strokec2  className=\cf6 \strokec6 "w-full px-8 py-6 bg-slate-50 rounded-3xl outline-none border focus:border-orange-500 font-bold"\cf0 \strokec2  />\cb1 \
-\cb4           <textarea rows=\{\cf8 \cb4 \strokec8 6\cf0 \cb4 \strokec2 \} required placeholder=\cf6 \strokec6 "\uc0\u12372 \u30456 \u35527 \u20869 \u23481 "\cf0 \strokec2  className=\cf6 \strokec6 "w-full px-8 py-6 bg-slate-50 rounded-3xl outline-none border focus:border-orange-500 font-bold resize-none"\cf0 \strokec2 ></textarea>\cb1 \
-\cb4           <button \cf3 \strokec3 type\cf0 \strokec2 =\cf6 \strokec6 "submit"\cf0 \strokec2  className=\cf6 \strokec6 "w-full bg-orange-500 text-white py-7 rounded-3xl font-bold text-2xl hover:bg-slate-900 transition-all"\cf0 \strokec2 >\cf7 \cb4 \strokec7 \uc0\u36865 \u20449 \u12377 \u12427 \cf0 \cb4 \strokec2 </button>\cb1 \
-\cb4         </form>\cb1 \
-\cb4       </div>\cb1 \
-\cb4     </div>\cb1 \
-\cb4   );\cb1 \
-\cb4 \};\cb1 \
-\
-\cf3 \cb4 \strokec3 const\cf0 \strokec2  \cf5 \strokec5 App\cf0 \strokec2  = () => (\cb1 \
-\cb4   <\cf5 \strokec5 HashRouter\cf0 \strokec2 >\cb1 \
-\cb4     <div className=\cf6 \strokec6 "min-h-screen flex flex-col bg-white"\cf0 \strokec2 >\cb1 \
-\cb4       <\cf5 \strokec5 Navbar\cf0 \strokec2  />\cb1 \
-\cb4       <main className=\cf6 \strokec6 "flex-grow pt-16"\cf0 \strokec2 >\cb1 \
-\cb4         <\cf5 \strokec5 Routes\cf0 \strokec2 >\cb1 \
-\cb4           <\cf5 \strokec5 Route\cf0 \strokec2  path=\cf6 \strokec6 "/"\cf0 \strokec2  element=\{<\cf5 \strokec5 HomePage\cf0 \strokec2  />\} />\cb1 \
-\cb4           <\cf5 \strokec5 Route\cf0 \strokec2  path=\cf6 \strokec6 "/services"\cf0 \strokec2  element=\{<\cf5 \strokec5 ServicesPage\cf0 \strokec2  />\} />\cb1 \
-\cb4           <\cf5 \strokec5 Route\cf0 \strokec2  path=\cf6 \strokec6 "/about"\cf0 \strokec2  element=\{<\cf5 \strokec5 AboutPage\cf0 \strokec2  />\} />\cb1 \
-\cb4           <\cf5 \strokec5 Route\cf0 \strokec2  path=\cf6 \strokec6 "/contact"\cf0 \strokec2  element=\{<\cf5 \strokec5 ContactPage\cf0 \strokec2  />\} />\cb1 \
-\cb4         </\cf5 \strokec5 Routes\cf0 \strokec2 >\cb1 \
-\cb4       </main>\cb1 \
-\cb4       <\cf5 \strokec5 Footer\cf0 \strokec2  />\cb1 \
-\cb4     </div>\cb1 \
-\cb4   </\cf5 \strokec5 HashRouter\cf0 \strokec2 >\cb1 \
-\cb4 );\cb1 \
-\
-\cf3 \cb4 \strokec3 export\cf0 \strokec2  \cf3 \strokec3 default\cf0 \strokec2  \cf5 \strokec5 App\cf0 \strokec2 ;\cb1 \
-\pard\pardeftab720\partightenfactor0
-\cf0 \outl0\strokewidth0 \
+const DynamicIcon = ({ name, className }: { name: string; className?: string }) => {
+  const icons: Record<string, any> = {
+    Target, Phone, ShoppingCart, Crown, FlaskConical, Lock, Sun, Car, Factory,
+    History, Award, HeartHandshake
+  };
+  const IconComponent = icons[name] || Target;
+  return <IconComponent className={className} />;
+};
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const navLinks = [
+    { name: 'ホーム', path: '/' },
+    { name: '事業内容', path: '/services' },
+    { name: '会社概要', path: '/about' },
+    { name: 'お問い合わせ', path: '/contact' },
+  ];
+
+  return (
+    <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-lg border-b border-slate-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 sm:h-20 items-center">
+          <Link to="/" className="flex items-center group space-x-3">
+            <SomSymbolLogo className="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110" />
+            <div className="flex flex-col">
+              <span className="text-xl font-bold tracking-tighter text-slate-900 group-hover:text-orange-500 transition-colors">
+                株式会社SOM
+              </span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none">
+                Sales & Life Innovation
+              </span>
+            </div>
+          </Link>
+
+          <div className="hidden md:flex space-x-8 items-center">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-sm font-bold transition-colors relative py-1 ${
+                  location.pathname === link.path ? 'text-orange-600' : 'text-slate-600 hover:text-orange-500'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link to="/contact" className="bg-orange-500 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-slate-900 transition-all shadow-md">
+              お問い合わせ
+            </Link>
+          </div>
+
+          <div className="md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-600 p-2">
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+      {isOpen && (
+        <div className="md:hidden bg-white border-t border-slate-100 absolute top-full left-0 w-full shadow-2xl">
+          <div className="px-4 py-6 space-y-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className={`block px-4 py-4 text-base font-bold rounded-xl ${location.pathname === link.path ? 'bg-orange-50 text-orange-600' : 'text-slate-700'}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="bg-slate-900 text-slate-300 pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="space-y-6">
+            <div className="flex items-center space-x-3">
+              <SomSymbolLogo className="h-10 w-10 brightness-0 invert" />
+              <span className="text-2xl font-bold tracking-tight text-white !text-white" style={{ color: '#ffffff' }}>
+                株式会社SOM
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-slate-400">
+              「人」と「社会」を最適化する。セールス、フィットネス、再生エネルギー。3つの柱で未来を切り拓きます。
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold mb-6 text-sm uppercase tracking-widest text-white !text-white" style={{ color: '#ffffff' }}>SERVICES</h3>
+            <ul className="space-y-4 text-sm font-medium">
+              <li><Link to="/services" className="hover:text-orange-400 font-bold">セールス・マーケティング</Link></li>
+              <li><Link to="/services" className="hover:text-orange-400 font-bold">パーソナルジム事業</Link></li>
+              <li><Link to="/services" className="hover:text-orange-400 font-bold">再生エネルギー事業</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-bold mb-6 text-sm uppercase tracking-widest text-white !text-white" style={{ color: '#ffffff' }}>COMPANY</h3>
+            <ul className="space-y-4 text-sm font-medium">
+              <li className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-orange-500 shrink-0" />
+                <span className="text-white !text-white font-bold" style={{ color: '#ffffff' }}>{COMPANY_DATA.address}</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Building2 className="h-5 w-5 text-orange-500 shrink-0" />
+                <span className="text-white !text-white font-bold" style={{ color: '#ffffff' }}>代表：{COMPANY_DATA.representative}</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-bold mb-6 text-sm uppercase tracking-widest text-white !text-white" style={{ color: '#ffffff' }}>CONTACT</h3>
+            <div className="space-y-4">
+              <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Mail Address</p>
+              <p className="text-sm font-bold underline underline-offset-4 decoration-orange-500 text-white !text-white" style={{ color: '#ffffff' }}>info@som-biz.com</p>
+            </div>
+          </div>
+        </div>
+        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+          <p className="text-white !text-white" style={{ color: '#ffffff' }}>© {new Date().getFullYear()} 株式会社SOM All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+const HomePage = () => (
+  <div className="animate-in fade-in duration-1000">
+    <section className="relative pt-32 pb-24 sm:pt-48 sm:pb-40 hero-mesh overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
+        <div className="max-w-4xl mx-auto sm:mx-0">
+          <div className="inline-flex items-center space-x-2 bg-orange-100/50 text-orange-700 px-4 py-1.5 rounded-full text-xs font-black mb-8 border border-orange-200">
+             <span className="uppercase tracking-[0.1em]">Innovation for 2025</span>
+          </div>
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold text-slate-900 leading-[1.05] mb-8">
+            可能性を、<br />
+            <span className="gradient-text">仕組みにする。</span>
+          </h1>
+          <p className="text-lg sm:text-2xl text-slate-600 mb-12 leading-relaxed max-w-2xl font-medium mx-auto sm:mx-0">
+            セールス、フィットネス、再生エネルギー。<br className="hidden sm:block" />すべて「より良い明日」へと繋がっています。
+          </p>
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center sm:justify-start">
+            <Link to="/services" className="inline-flex items-center justify-center bg-slate-900 text-white px-10 py-5 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl text-lg group">
+              事業内容を見る <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-sm font-black text-orange-600 tracking-[0.3em] uppercase mb-4">OUR STRENGTHS</h2>
+          <p className="text-3xl sm:text-4xl font-bold text-slate-900">SOMが選ばれる理由</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { icon: ShieldCheck, title: "確かな専門性", desc: "各分野のスペシャリストが、データと経験に基づいた確実な成果をお約束します。" },
+            { icon: Zap, title: "圧倒的な実行スピード", desc: "戦略立案から実働まで一貫してサポート。変化の激しい市場に即座に対応します。" },
+            { icon: Users, title: "人に寄り添うパートナーシップ", desc: "アットホームな熱量を持ちながら、プロフェッショナルとして伴走し続けます。" },
+          ].map((s, i) => (
+            <div key={i} className="bg-white p-10 rounded-[3rem] shadow-sm hover:shadow-xl transition-all border border-slate-100 group">
+              <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-colors">
+                <s.icon className="w-8 h-8 text-orange-500 group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">{s.title}</h3>
+              <p className="text-slate-500 leading-relaxed font-medium">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="py-24 bg-white">
+      <div className="max-w-5xl mx-auto px-4 text-center">
+        <div className="bg-orange-500 p-16 sm:p-24 rounded-[4rem] shadow-2xl">
+          <h2 className="text-3xl sm:text-5xl font-bold text-white mb-8 leading-tight">
+            あなたのビジネスの可能性を、<br />共に見つけ出しましょう。
+          </h2>
+          <Link to="/contact" className="inline-flex items-center justify-center bg-white text-orange-600 px-12 py-6 rounded-full font-bold text-xl hover:bg-slate-900 hover:text-white transition-all shadow-xl group">
+            無料相談を申し込む <ArrowRight className="ml-3 w-6 h-6 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  </div>
+);
+
+const AboutPage = () => (
+  <div className="pt-24 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="bg-slate-50 py-32 mb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left">
+        <h1 className="text-sm font-black text-orange-600 tracking-[0.5em] uppercase mb-6">ABOUT SOM</h1>
+        <p className="text-5xl sm:text-7xl font-bold text-slate-900 leading-tight">会社概要・代表紹介</p>
+      </div>
+    </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-40">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-48 items-center">
+        <div className="lg:col-span-5">
+           <div className="rounded-[3rem] overflow-hidden shadow-2xl bg-white p-4 border border-slate-100">
+              <img src="https://images.unsplash.com/photo-1519085185971-7ad0bb2fd27d?auto=format&fit=crop&q=80&w=1000" alt="CEO" className="rounded-[2.5rem] w-full aspect-[3/4] object-cover" />
+              <div className="mt-8 px-6 pb-6 text-center lg:text-left">
+                <p className="text-xs font-black text-orange-500 tracking-widest uppercase mb-1">Representative Director</p>
+                <h3 className="text-4xl font-bold text-slate-900">{COMPANY_DATA.representative}</h3>
+              </div>
+           </div>
+        </div>
+        <div className="lg:col-span-7 space-y-8">
+          <div className="bg-orange-50 border-l-4 border-orange-500 p-8 rounded-r-3xl">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 leading-snug">「人」の可能性を最大化し、<br />社会の最適解を導き出す。</h2>
+            <p className="text-slate-600 text-lg leading-relaxed font-medium">
+              2016年の設立当初から変わらない想いがあります。セールスでクライアントの可能性を広げ、ジムで個人の活力を最大化し、再生エネルギーで社会の持続可能性を支える。これらはすべて一つの「明日への仕組み」として繋がっています。
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-6 bg-slate-50 rounded-3xl">
+              <p className="text-2xl font-bold text-orange-500 mb-1 tracking-tighter">Established</p>
+              <p className="text-slate-900 font-bold">2016.08.16</p>
+            </div>
+            <div className="p-6 bg-slate-50 rounded-3xl">
+              <p className="text-2xl font-bold text-orange-500 mb-1 tracking-tighter">Location</p>
+              <p className="text-slate-900 font-bold">Tokyo, Ikebukuro</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-white rounded-[3rem] border border-slate-100 shadow-xl overflow-hidden">
+        {[
+          { label: "会社名", value: COMPANY_DATA.name },
+          { label: "代表取締役", value: COMPANY_DATA.representative },
+          { label: "所在地", value: COMPANY_DATA.address },
+          { label: "設立", value: COMPANY_DATA.established },
+          { label: "事業内容", value: (
+            <ul className="space-y-4 py-2">
+              {COMPANY_DATA.businessDetails.map(d => (
+                <li key={d} className="flex items-start font-bold text-slate-700 leading-relaxed">
+                  <CheckCircle2 className="w-5 h-5 text-orange-500 mr-3 mt-1 shrink-0" />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+          )},
+        ].map((row, idx) => (
+          <div key={idx} className="flex flex-col md:flex-row py-12 px-10 border-b border-slate-50 last:border-0">
+            <div className="md:w-1/3 text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4 md:mb-0">{row.label}</div>
+            <div className="md:w-2/3 text-xl sm:text-2xl text-slate-900 font-bold leading-tight">{row.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const ServicesPage = () => {
+  const [expandedFeature, setExpandedFeature] = useState<string | null>(null);
+  return (
+    <div className="pt-24 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+        <h1 className="text-sm font-black text-orange-600 tracking-[0.5em] uppercase mb-6">WHAT WE DO</h1>
+        <p className="text-5xl sm:text-7xl font-bold text-slate-900 mb-10 leading-tight">事業内容</p>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-40 space-y-48">
+        {SERVICES.map((service, idx) => (
+          <div key={service.id} className={`flex flex-col lg:flex-row items-center gap-16 lg:gap-32 ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+            <div className="w-full lg:w-1/2 rounded-[3.5rem] overflow-hidden shadow-2xl group">
+              <img src={service.imageUrl} alt={service.title} className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div className="w-full lg:w-1/2 space-y-10">
+              <div className="space-y-4">
+                <span className="text-orange-500 font-black text-xs uppercase tracking-widest">Service 0{idx + 1}</span>
+                <h2 className="text-4xl sm:text-6xl font-bold text-slate-900 leading-tight">{service.title}</h2>
+              </div>
+              <p className="text-slate-500 text-xl font-medium leading-relaxed">{service.description}</p>
+              <div className="space-y-4">
+                {service.features.map(f => (
+                  <div key={f.label} className="border border-slate-100 rounded-[2rem] bg-slate-50 overflow-hidden transition-all">
+                    <button 
+                      onClick={() => setExpandedFeature(expandedFeature === f.label ? null : f.label)} 
+                      className={`w-full flex items-center justify-between p-6 transition-colors ${expandedFeature === f.label ? 'bg-orange-50' : 'hover:bg-slate-100'}`}
+                    >
+                      <div className="flex items-center">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center mr-5 transition-all ${expandedFeature === f.label ? 'bg-orange-500 text-white shadow-lg' : 'bg-white text-slate-400'}`}>
+                          <DynamicIcon name={f.iconName} className="w-6 h-6" />
+                        </div>
+                        <span className="text-lg font-bold text-slate-700 text-left">{f.label}</span>
+                      </div>
+                      <ChevronDown className={`w-6 h-6 text-slate-300 transition-transform duration-500 ${expandedFeature === f.label ? 'rotate-180 text-orange-500' : ''}`} />
+                    </button>
+                    {expandedFeature === f.label && (
+                      <div className="p-8 pt-0 bg-white text-slate-600 font-bold leading-relaxed animate-in slide-in-from-top-2 duration-300">
+                        {f.description}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ContactPage = () => {
+  const [submitted, setSubmitted] = useState(false);
+  if (submitted) return (
+    <div className="pt-32 pb-40 text-center px-4 animate-in zoom-in duration-500">
+      <div className="bg-orange-100 text-orange-600 w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-12 shadow-inner"><CheckCircle2 className="w-16 h-16" /></div>
+      <h1 className="text-4xl font-bold mb-8">送信完了いたしました</h1>
+      <p className="text-slate-500 mb-12 font-medium">お問い合わせありがとうございます。担当者より追ってご連絡いたします。</p>
+      <Link to="/" className="inline-block bg-slate-900 text-white px-14 py-6 rounded-full font-bold shadow-lg hover:bg-slate-800 transition-all">トップへ戻る</Link>
+    </div>
+  );
+  return (
+    <div className="pt-32 pb-40 px-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="max-w-4xl mx-auto bg-white p-10 sm:p-20 rounded-[4rem] border border-slate-100 shadow-2xl">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight">お問い合わせ</h1>
+          <p className="text-slate-500 font-medium">各種サービスに関するご相談やご質問を承っております。</p>
+        </div>
+        <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-8">
+          <div className="space-y-2">
+            <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-4">Full Name</label>
+            <input type="text" required placeholder="お名前" className="w-full px-8 py-6 bg-slate-50 rounded-3xl outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all font-bold" />
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-4">Email Address</label>
+            <input type="email" required placeholder="メールアドレス" className="w-full px-8 py-6 bg-slate-50 rounded-3xl outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all font-bold" />
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-4">Message</label>
+            <textarea rows={6} required placeholder="ご相談内容をご記入ください" className="w-full px-8 py-6 bg-slate-50 rounded-3xl outline-none border border-transparent focus:border-orange-500 focus:bg-white transition-all font-bold resize-none"></textarea>
+          </div>
+          <button type="submit" className="w-full bg-orange-500 text-white py-7 rounded-3xl font-bold text-2xl hover:bg-slate-900 transition-all shadow-xl shadow-orange-500/20 active:scale-95">送信する</button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const App = () => (
+  <HashRouter>
+    <div className="min-h-screen flex flex-col bg-white">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  </HashRouter>
+);
+
+export default App;
 }
